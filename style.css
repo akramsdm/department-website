@@ -100,7 +100,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--bugema-red); border-bottom:
 /* Hero Section */
 .hero {
     height: 60vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80');
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://kampalacampus.bugemauniv.ac.ug/wp-content/uploads/2024/10/Bugema-University-Cyber-Stars-Competition-2022-at-UCC-Uganda6.jpeg');
     background-size: cover;
     background-position: center;
     display: flex;
