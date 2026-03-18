@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bugema Computing | Home</title>
+    <meta name="description" content="Department of Computing & Informatics at Bugema University — training the next generation of technology leaders in East Africa.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Homepage extras ── */
+
+        .stats-bar { background: var(--bugema-blue); padding: 28px 8%; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .stat-item .stat-number {
+            font-size: 2rem; font-weight: 800; color: white;
+            line-height: 1; margin-bottom: 6px;
+        }
+        .stat-item .stat-label {
+            font-size: 0.8rem; color: rgba(255,255,255,0.75);
+            text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+        }
+        .stat-divider { width: 1px; background: rgba(255,255,255,0.2); align-self: stretch; }
+
+        /* HOD welcome */
+        .hod-welcome {
+            background: var(--light-bg);
+            border: 1px solid #e1e3e6;
+            border-left: 5px solid var(--bugema-red);
+            border-radius: 0 8px 8px 0;
+            padding: 32px 28px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: center;
+        }
+        .hod-welcome h2 { color: var(--bugema-blue); margin-bottom: 12px; font-size: 1.3rem; }
+        .hod-welcome p  { color: #444; line-height: 1.7; margin-bottom: 12px; font-size: 0.95rem; }
+        .hod-welcome p:last-child { margin-bottom: 0; }
+        .hod-welcome .hod-sig { font-weight: 700; color: var(--bugema-blue); }
+        .hod-badge {
+            background: var(--bugema-blue); color: white;
+            border-radius: 8px; padding: 18px 20px;
+            text-align: center; min-width: 130px;
+        }
+        .hod-badge .initials { font-size: 2rem; font-weight: 800; line-height: 1; margin-bottom: 8px; }
+        .hod-badge .hod-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
+
+        /* Why join */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .why-card {
+            background: white;
+            border: 1px solid #e4e8ed;
+            border-top: 4px solid var(--bugema-red);
+            border-radius: 0 0 8px 8px;
+            padding: 24px 22px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .why-card:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0,0,0,0.09); }
+        .why-card h3 { font-size: 1rem; color: var(--bugema-blue); margin-bottom: 8px; }
+        .why-card p  { font-size: 0.88rem; color: #555; line-height: 1.6; }
+
+        /* Programs preview */
+        .programs-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .prog-preview-card {
+            background: white; border: 1px solid #e4e8ed;
+            border-radius: 8px; padding: 20px 18px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .prog-preview-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+        .prog-badge {
+            display: inline-block; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            padding: 3px 9px; border-radius: 20px; margin-bottom: 10px;
+        }
+        .prog-badge.bsc { background: #eef2f8; color: var(--bugema-blue); }
+        .prog-badge.msc { background: #fef0f0; color: var(--bugema-red); }
+        .prog-preview-card h3 { font-size: 0.92rem; color: var(--bugema-blue); line-height: 1.4; margin-bottom: 6px; }
+        .prog-preview-card p  { font-size: 0.82rem; color: #666; line-height: 1.5; }
+
+        .section-cta { text-align: right; margin-top: 16px; }
+        .section-cta a { font-size: 0.88rem; font-weight: 700; color: var(--bugema-red); text-decoration: none; }
+        .section-cta a:hover { text-decoration: underline; }
+
+        /* About cards */
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .about-card {
+            background: white; border: 1px solid #e4e8ed;
+            border-top: 4px solid var(--bugema-blue);
+            border-radius: 0 0 8px 8px; padding: 26px 22px;
+        }
+        .about-card h3 { font-size: 1rem; color: var(--bugema-blue); margin-bottom: 10px; }
+        .about-card p  { font-size: 0.9rem; color: #555; line-height: 1.6; }
+
+        /* FAQ */
+        .faq-list { display: flex; flex-direction: column; gap: 2px; }
+        .faq-item {
+            background: white;
+            border: 1px solid #e4e8ed;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--bugema-blue);
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            transition: background 0.15s;
+            gap: 12px;
+        }
+        .faq-question:hover { background: #f5f7fa; }
+        .faq-question.open  { background: #f0f4f9; }
+        .faq-chevron {
+            width: 18px; height: 18px; flex-shrink: 0;
+            border-right: 2px solid var(--bugema-red);
+            border-bottom: 2px solid var(--bugema-red);
+            transform: rotate(45deg);
+            transition: transform 0.25s ease;
+            margin-top: -4px;
+        }
+        .faq-question.open .faq-chevron {
+            transform: rotate(-135deg);
+            margin-top: 4px;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 20px;
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.7;
+        }
+        .faq-answer.open {
+            max-height: 300px;
+            padding: 0 20px 16px;
+        }
+
+        /* CTA banner */
+        .cta-banner {
+            background: var(--bugema-blue); border-radius: 10px;
+            padding: 36px 40px;
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 20px; flex-wrap: wrap;
+        }
+        .cta-banner h2 { color: white; font-size: 1.4rem; margin-bottom: 6px; }
+        .cta-banner p  { color: rgba(255,255,255,0.8); font-size: 0.92rem; }
+        .cta-buttons   { display: flex; gap: 12px; flex-wrap: wrap; }
+        .cta-btn-primary {
+            background: var(--bugema-red); color: white;
+            padding: 12px 26px; border-radius: 5px; font-weight: 700;
+            text-decoration: none; font-size: 0.92rem; transition: background 0.2s; white-space: nowrap;
+        }
+        .cta-btn-primary:hover { background: #a20d26; }
+        .cta-btn-secondary {
+            background: rgba(255,255,255,0.15); color: white;
+            padding: 12px 26px; border-radius: 5px; font-weight: 700;
+            text-decoration: none; font-size: 0.92rem;
+            border: 1px solid rgba(255,255,255,0.3); transition: background 0.2s; white-space: nowrap;
+        }
+        .cta-btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+        @media (max-width: 700px) {
+            .hod-welcome { grid-template-columns: 1fr; }
+            .hod-badge   { display: none; }
+            .cta-banner  { padding: 28px 24px; }
+            .stat-divider { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="logo.jpeg" alt="Bugema Logo">
+            <div class="logo-text">BUGEMA<br>COMPUTING</div>
+        </div>
+        <ul>
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="faculty.html">Faculty</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a class="apply-btn" href="https://erms.bugemauniv.ac.ug/application/" target="_blank" rel="noopener">Apply</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <h1>Innovation in the Digital Age</h1>
+        <p>Train with Uganda's leading computing department and build the technology that shapes East Africa's future.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
+            <a href="programs.html" class="btn">Explore Programs</a>
+            <a href="https://erms.bugemauniv.ac.ug/application/" target="_blank" rel="noopener"
+               class="btn" style="background:white; color:var(--bugema-blue);">Apply Now</a>
+        </div>
+    </header>
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Alumni Placed</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Degree Programs</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Active Research Projects</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">Top 3</div>
+                <div class="stat-label">Research Impact, East Africa</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">Industry Partners</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOD Welcome -->
+    <section class="container">
+        <div class="hod-welcome">
+            <div>
+                <h2>A Message from the Head of Department</h2>
+                <p>Welcome to the Department of Computing &amp; Informatics at Bugema University. We are committed to academic excellence, ethical leadership, and producing graduates who make a real difference through technology.</p>
+                <p>Whether you are a prospective student, a researcher, or an industry partner — we invite you to explore what our department has to offer and join a growing community of innovators.</p>
+                <p class="hod-sig">Dr. Jane N. Adoch<br>
+                <span style="font-weight:400; font-size:0.88rem; color:#666;">Head of Department, Computing &amp; Informatics</span></p>
+            </div>
+            <div class="hod-badge">
+                <div class="initials">JA</div>
+                <div class="hod-title">Head of<br>Department</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Join Us -->
+    <section class="container">
+        <h2 class="section-heading">Why Join Our Department?</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <h3>Industry-Ready Graduates</h3>
+                <p>Our programs are built around real-world skills. Graduates leave with hands-on experience in software development, cybersecurity, AI, and more — ready to work from day one.</p>
+            </div>
+            <div class="why-card">
+                <h3>Active Research Culture</h3>
+                <p>Students engage directly with ongoing research projects — from AI for rural education to clinical decision support — gaining exposure to cutting-edge work before they graduate.</p>
+            </div>
+            <div class="why-card">
+                <h3>Strong Industry Links</h3>
+                <p>Partnerships with tech companies open doors to internships, placements, and employment. Our latest TechCorp partnership alone created 30 student internship positions.</p>
+            </div>
+            <div class="why-card">
+                <h3>East Africa Focus</h3>
+                <p>We train you to solve African problems with African context. Our research and curriculum are rooted in the realities of the region — health, agriculture, education, and fintech.</p>
+            </div>
+            <div class="why-card">
+                <h3>Faith-Based Values</h3>
+                <p>As a Seventh-day Adventist institution, Bugema University integrates ethical leadership and Christian values into every program — producing graduates of character, not just competence.</p>
+            </div>
+            <div class="why-card">
+                <h3>Scholarships &amp; Support</h3>
+                <p>Expanded scholarship schemes support women in STEM and students from underserved communities — making quality computing education accessible to those who need it most.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Preview -->
+    <section class="container">
+        <h2 class="section-heading">Our Programs</h2>
+        <div class="programs-preview">
+            <div class="prog-preview-card">
+                <span class="prog-badge bsc">BSc &middot; 3&ndash;4 yrs</span>
+                <h3>Computer Science</h3>
+                <p>Algorithms, systems, and software engineering fundamentals.</p>
+            </div>
+            <div class="prog-preview-card">
+                <span class="prog-badge bsc">BSc &middot; 3&ndash;4 yrs</span>
+                <h3>Information Technology</h3>
+                <p>IT infrastructure, networking, and business applications.</p>
+            </div>
+            <div class="prog-preview-card">
+                <span class="prog-badge bsc">BSc &middot; 3&ndash;4 yrs</span>
+                <h3>Software Engineering</h3>
+                <p>Agile development, DevOps, and the full software lifecycle.</p>
+            </div>
+            <div class="prog-preview-card">
+                <span class="prog-badge msc">MSc &middot; 1.5&ndash;2 yrs</span>
+                <h3>Cybersecurity</h3>
+                <p>Network defence, cryptography, and digital forensics.</p>
+            </div>
+            <div class="prog-preview-card">
+                <span class="prog-badge msc">MSc &middot; 1.5&ndash;2 yrs</span>
+                <h3>Data Science &amp; AI</h3>
+                <p>Machine learning, analytics, and responsible AI practice.</p>
+            </div>
+            <div class="prog-preview-card">
+                <span class="prog-badge msc">MSc &middot; 1.5&ndash;2 yrs</span>
+                <h3>Computer Science (Postgraduate)</h3>
+                <p>Advanced research in distributed systems and emerging computing.</p>
+            </div>
+        </div>
+        <div class="section-cta">
+            <a href="programs.html">View all programs with full details &rarr;</a>
+        </div>
+    </section>
+
+    <!-- About the Department -->
+    <section class="container">
+        <h2 class="section-heading">About the Department</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>Our Mission</h3>
+                <p>To provide high-quality, faith-based education in computing that equips students with the skills, ethics, and vision to lead in a rapidly changing digital world.</p>
+            </div>
+            <div class="about-card">
+                <h3>Our Vision</h3>
+                <p>To be the leading centre for technological innovation and informatics research in East Africa — recognised for academic excellence and community impact.</p>
+            </div>
+            <div class="about-card">
+                <h3>Department History</h3>
+                <p>Founded to meet Uganda's growing demand for technology professionals, the department has grown into a hub for digital innovation, research, and industry collaboration.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="container">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    What entry requirements do I need for undergraduate admission?
+                    <span class="faq-chevron"></span>
+                </button>
+                <div class="faq-answer">
+                    You need a Uganda Certificate of Education (UCE) with passes in Mathematics and English, plus a Uganda Advanced Certificate of Education (UACE) or equivalent qualification. An entry test may also be required. International applicants must provide proof of English proficiency and certified equivalence of their prior qualifications.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    How long do the programs take to complete?
+                    <span class="faq-chevron"></span>
+                </button>
+                <div class="faq-answer">
+                    Undergraduate BSc programs run for 3 to 4 years depending on the specialisation and credit hours. Postgraduate taught MSc programs take 1.5 to 2 years. Research-based MSc programs typically take 2 to 3 years depending on thesis progress.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Are scholarships available for students?
+                    <span class="faq-chevron"></span>
+                </button>
+                <div class="faq-answer">
+                    Yes. The department has an active scholarship scheme that supports women in STEM and students from underserved communities across Uganda. Contact the admissions office at admissions@bugema.ac.ug for current scholarship opportunities and eligibility criteria.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Can I apply as a mature or international student?
+                    <span class="faq-chevron"></span>
+                </button>
+                <div class="faq-answer">
+                    Yes. Applicants aged 25 and above with relevant professional experience may apply through the mature entry route — a portfolio or written statement is required. International applicants need to provide proof of English language proficiency (IELTS 6.0 or equivalent) and certified qualification equivalence from the Uganda National Examinations Board (UNEB).
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    What career paths are available after graduation?
+                    <span class="faq-chevron"></span>
+                </button>
+                <div class="faq-answer">
+                    Graduates have gone on to work as software engineers, data analysts, cybersecurity specialists, IT managers, and researchers across East Africa and beyond. The department's industry partnerships also create direct pathways into internships and employment with technology companies in the region.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    How do I apply and what is the application deadline?
+                    <span class="faq-chevron"></span>
+                </button>
+                <div class="faq-answer">
+                    All applications are submitted through the Bugema University online portal at erms.bugemauniv.ac.ug. Ensure all supporting documents — transcripts, national ID, and references — are uploaded before submission. Contact admissions@bugema.ac.ug for the current intake deadlines.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Does the department offer postgraduate research supervision?
+                    <span class="faq-chevron"></span>
+                </button>
+                <div class="faq-answer">
+                    Yes. The department has qualified supervisors in AI and machine learning, cybersecurity, data science, software engineering, and cloud computing. Postgraduate research applicants are required to submit a research proposal and attend an interview with the supervisory team before admission is confirmed.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="container">
+        <div class="cta-banner">
+            <div>
+                <h2>Ready to start your journey?</h2>
+                <p>Applications for the 2026/27 academic year are now open. Join 500+ alumni already working across East Africa and beyond.</p>
+            </div>
+            <div class="cta-buttons">
+                <a href="https://erms.bugemauniv.ac.ug/application/" target="_blank" rel="noopener" class="cta-btn-primary">Apply Now</a>
+                <a href="contact.html" class="cta-btn-secondary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Bugema University, Main Campus | Bugema, Uganda<br>&copy; 2026 Department of Computing &amp; Informatics</p>
+    </footer>
+
+    <script>
+        // Hamburger
+        var toggle = document.getElementById('navToggle');
+        var menu   = document.querySelector('nav ul');
+        toggle.addEventListener('click', function() {
+            toggle.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var answer  = btn.nextElementSibling;
+                var isOpen  = btn.classList.contains('open');
+
+                // Close all
+                document.querySelectorAll('.faq-question').forEach(function(b) {
+                    b.classList.remove('open');
+                    b.setAttribute('aria-expanded', 'false');
+                    b.nextElementSibling.classList.remove('open');
+                });
+
+                // Open clicked (if it was closed)
+                if (!isOpen) {
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                    answer.classList.add('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

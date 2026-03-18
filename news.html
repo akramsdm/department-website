@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bugema Computing | News</title>
+    <meta name="description" content="Latest news, upcoming events, and achievements from the Department of Computing & Informatics at Bugema University.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── News page styles ── */
+
+        .news-section {
+            margin-bottom: 52px;
+            scroll-margin-top: 80px;
+        }
+
+        .news-section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 24px;
+        }
+        .news-section-header h2 {
+            font-size: 1.2rem;
+            color: var(--bugema-blue);
+        }
+        .news-count {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--bugema-red);
+            color: white;
+            padding: 3px 9px;
+            border-radius: 20px;
+        }
+
+        /* Card grid — 3 cols desktop, 1 mobile */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* News card */
+        .news-card {
+            background: white;
+            border: 1px solid #e4e8ed;
+            border-top: 4px solid var(--bugema-blue);
+            border-radius: 0 0 8px 8px;
+            padding: 20px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.09);
+        }
+
+        /* Event cards get red top border */
+        .news-card.event {
+            border-top-color: var(--bugema-red);
+        }
+
+        /* Achievement cards get a lighter blue */
+        .news-card.achievement {
+            border-top-color: #3a7bd5;
+        }
+
+        .news-card h3 {
+            font-size: 0.97rem;
+            color: var(--bugema-blue);
+            margin-bottom: 10px;
+            line-height: 1.45;
+        }
+        .news-card p {
+            font-size: 0.88rem;
+            color: #555;
+            line-height: 1.6;
+            flex: 1;
+            margin-bottom: 14px;
+        }
+        .news-card .meta {
+            font-size: 0.78rem;
+            color: #888;
+            font-weight: 600;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .news-card .meta::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--bugema-red);
+            flex-shrink: 0;
+        }
+        .news-card.event .meta::before  { background: var(--bugema-red); }
+        .news-card.achievement .meta::before { background: #3a7bd5; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="logo.jpeg" alt="Bugema Logo">
+            <div class="logo-text">BUGEMA<br>COMPUTING</div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="faculty.html">Faculty</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a class="active" href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a class="apply-btn" href="https://erms.bugemauniv.ac.ug/application/" target="_blank" rel="noopener">Apply</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <header class="hero">
+        <h1>News &amp; Events</h1>
+        <p>Stay up to date with our latest achievements, seminars, and announcements.</p>
+    </header>
+
+    <section class="container">
+
+        <h2 class="section-heading">News &amp; Events</h2>
+
+        <!-- Original nav buttons kept -->
+        <div class="news-nav">
+            <a href="#latest-news">Latest News</a>
+            <a href="#upcoming-events">Upcoming Events</a>
+            <a href="#achievements">Achievements</a>
+        </div>
+
+        <!-- Latest News -->
+        <article id="latest-news" class="news-section">
+            <div class="news-section-header">
+                <h2>Latest Department News</h2>
+                <span class="news-count">3 Articles</span>
+            </div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <h3>Department Receives Grant for AI Lab</h3>
+                    <p>Bugema Computing was awarded a research grant to build an AI innovation lab with state-of-the-art infrastructure.</p>
+                    <div class="meta">Published: March 2026</div>
+                </div>
+                <div class="news-card">
+                    <h3>New Internship Partnership with TechCorp</h3>
+                    <p>A new industry collaboration offers internships for 30 students in software development and cybersecurity.</p>
+                    <div class="meta">Published: February 2026</div>
+                </div>
+                <div class="news-card">
+                    <h3>Faculty Receives Best Paper Award</h3>
+                    <p>Dr. Adoch won best paper at the East African ICT Conference for her work on mental health AI agents.</p>
+                    <div class="meta">Published: January 2026</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Upcoming Events -->
+        <article id="upcoming-events" class="news-section">
+            <div class="news-section-header">
+                <h2>Upcoming Events, Seminars &amp; Workshops</h2>
+                <span class="news-count">3 Events</span>
+            </div>
+            <div class="news-grid">
+                <div class="news-card event">
+                    <h3>National Cybersecurity Workshop</h3>
+                    <p>A hands-on workshop for students and professionals covering secure system design, penetration testing, and threat response.</p>
+                    <div class="meta">1–3 April 2026 &nbsp;·&nbsp; Bugema Campus</div>
+                </div>
+                <div class="news-card event">
+                    <h3>AI Symposium 2026</h3>
+                    <p>Presentations from leading AI researchers on ethics, deployment, and societal impact of artificial intelligence.</p>
+                    <div class="meta">15 May 2026 &nbsp;·&nbsp; Online + Hybrid</div>
+                </div>
+                <div class="news-card event">
+                    <h3>Research Methodology Training</h3>
+                    <p>Two-day seminar on academic writing, experimental design, and publication strategy for postgraduate students.</p>
+                    <div class="meta">22 June 2026 &nbsp;·&nbsp; Room 102</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Achievements -->
+        <article id="achievements" class="news-section">
+            <div class="news-section-header">
+                <h2>Achievements &amp; Announcements</h2>
+                <span class="news-count">3 Items</span>
+            </div>
+            <div class="news-grid">
+                <div class="news-card achievement">
+                    <h3>Graduating Class Reaches 500 Alumni</h3>
+                    <p>Strong outcomes and job-placement rates make this cohort the largest yet for the department.</p>
+                    <div class="meta">March 2026</div>
+                </div>
+                <div class="news-card achievement">
+                    <h3>New Scholarship Scheme Launched</h3>
+                    <p>Scholarship support expanded to include women in STEM and students from underserved regions across Uganda.</p>
+                    <div class="meta">February 2026</div>
+                </div>
+                <div class="news-card achievement">
+                    <h3>Department Ranked Top in Region</h3>
+                    <p>Independent rankings place Bugema Computing in the top 3 for research impact in East Africa.</p>
+                    <div class="meta">January 2026</div>
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+    <footer>
+        <p>Bugema University, Main Campus | Bugema, Uganda<br>&copy; 2026 Department of Computing &amp; Informatics</p>
+    </footer>
+
+    <script>
+        var toggle = document.getElementById('navToggle');
+        var menu   = document.querySelector('nav ul');
+        toggle.addEventListener('click', function() {
+            toggle.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

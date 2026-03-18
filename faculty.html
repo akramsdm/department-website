@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bugema Computing | Faculty</title>
+    <meta name="description" content="Meet the staff and faculty of the Department of Computing & Informatics at Bugema University.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Faculty page styles ── */
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 36px;
+            align-items: center;
+        }
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #888;
+            margin-right: 4px;
+        }
+        .filter-btn {
+            padding: 7px 18px;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            background: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { border-color: var(--bugema-blue); color: var(--bugema-blue); }
+        .filter-btn.active {
+            background: var(--bugema-blue);
+            border-color: var(--bugema-blue);
+            color: white;
+        }
+
+        /* Faculty grid — 2 cols on desktop, 1 on mobile */
+        .faculty-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+            gap: 24px;
+        }
+
+        /* Profile card — horizontal layout */
+        .profile-card {
+            background: white;
+            border: 1px solid #e4e8ed;
+            border-radius: 10px;
+            display: flex;
+            gap: 0;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .profile-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.09);
+        }
+
+        /* Coloured left accent strip + avatar */
+        .profile-avatar {
+            width: 130px;
+            flex-shrink: 0;
+            background: var(--bugema-blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            gap: 12px;
+        }
+        .profile-avatar .avatar-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .profile-avatar .avatar-initials {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.02em;
+            flex-shrink: 0;
+        }
+        .profile-avatar .rank-badge {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.15);
+            padding: 3px 8px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        /* HOD gets red accent */
+        .profile-card.hod .profile-avatar { background: var(--bugema-red); }
+
+        /* Profile body */
+        .profile-body {
+            flex: 1;
+            padding: 20px 22px;
+            min-width: 0;
+        }
+        .profile-body h3 {
+            font-size: 1.05rem;
+            color: var(--bugema-blue);
+            margin-bottom: 2px;
+            line-height: 1.3;
+        }
+        .profile-body .title-line {
+            font-size: 0.82rem;
+            color: var(--bugema-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+        }
+
+        /* Info rows inside profile */
+        .info-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.86rem;
+            line-height: 1.5;
+            align-items: flex-start;
+        }
+        .info-row .info-label {
+            font-weight: 700;
+            color: var(--bugema-blue);
+            white-space: nowrap;
+            min-width: 90px;
+            flex-shrink: 0;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding-top: 2px;
+        }
+        .info-row .info-val { color: #444; }
+
+        /* Tags for research interests */
+        .tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+        .tag {
+            font-size: 0.75rem;
+            background: #eef2f8;
+            color: var(--bugema-blue);
+            padding: 2px 9px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        /* Email link */
+        .profile-email {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: var(--bugema-blue);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dashed var(--bugema-blue);
+        }
+        .profile-email:hover { color: var(--bugema-red); border-color: var(--bugema-red); }
+
+        /* Office badge */
+        .office-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #888;
+            margin-left: 10px;
+        }
+
+        /* Hidden state for filter */
+        .profile-card.hidden { display: none; }
+
+        @media (max-width: 700px) {
+            .faculty-list { grid-template-columns: 1fr; }
+            .profile-avatar { width: 100px; padding: 18px 12px; }
+            .profile-avatar .avatar-initials,
+            .profile-avatar .avatar-img { width: 64px; height: 64px; font-size: 1.2rem; }
+            .profile-body { padding: 16px 16px; }
+            .info-row .info-label { min-width: 76px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="logo.jpeg" alt="Bugema Logo">
+            <div class="logo-text">BUGEMA<br>COMPUTING</div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a class="active" href="faculty.html">Faculty</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a class="apply-btn" href="https://erms.bugemauniv.ac.ug/application/" target="_blank" rel="noopener">Apply</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <header class="hero">
+        <h1>Staff &amp; Faculty Profiles</h1>
+        <p>Meet the educators and researchers who drive our department.</p>
+    </header>
+
+    <section class="container">
+        <h2 class="section-heading">Staff / Faculty Profiles</h2>
+
+        <!-- Filter bar -->
+        <div class="filter-bar">
+            <span class="filter-label">Filter:</span>
+            <button class="filter-btn active" data-filter="all">All Staff</button>
+            <button class="filter-btn" data-filter="professor">Professors</button>
+            <button class="filter-btn" data-filter="lecturer">Lecturers</button>
+            <button class="filter-btn" data-filter="ai">AI &amp; ML</button>
+            <button class="filter-btn" data-filter="security">Security</button>
+            <button class="filter-btn" data-filter="software">Software Eng.</button>
+        </div>
+
+        <!-- Faculty cards -->
+        <div class="faculty-list">
+
+            <!-- Dr. Jane N. Adoch — HOD -->
+            <article class="profile-card hod" data-tags="all professor ai">
+                <div class="profile-avatar">
+                    <div class="avatar-initials">JA</div>
+                    <span class="rank-badge">HOD</span>
+                </div>
+                <div class="profile-body">
+                    <h3>Dr. Jane N. Adoch</h3>
+                    <div class="title-line">Head of Department</div>
+
+                    <div class="info-row">
+                        <span class="info-label">Qualifications</span>
+                        <span class="info-val">Ph.D. Computer Science &nbsp;·&nbsp; MSc Information Technology &nbsp;·&nbsp; BSc Computer Science</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Research</span>
+                        <div>
+                            <div class="tag-list">
+                                <span class="tag">Artificial Intelligence</span>
+                                <span class="tag">E-learning</span>
+                                <span class="tag">Sustainable ICT</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Publications</span>
+                        <span class="info-val">Adaptive Learning Systems &nbsp;·&nbsp; AI for Rural Education</span>
+                    </div>
+
+                    <a class="profile-email" href="mailto:jane.adoch@bugema.ac.ug">jane.adoch@bugema.ac.ug</a>
+                    <span class="office-badge">Office 101</span>
+                </div>
+            </article>
+
+            <!-- Prof. Samuel K. Lubega -->
+            <article class="profile-card" data-tags="all professor software">
+                <div class="profile-avatar">
+                    <div class="avatar-initials">SL</div>
+                    <span class="rank-badge">Assoc. Prof</span>
+                </div>
+                <div class="profile-body">
+                    <h3>Prof. Samuel K. Lubega</h3>
+                    <div class="title-line">Associate Professor</div>
+
+                    <div class="info-row">
+                        <span class="info-label">Qualifications</span>
+                        <span class="info-val">Ph.D. Software Engineering &nbsp;·&nbsp; MSc Computer Science &nbsp;·&nbsp; BSc Software Development</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Research</span>
+                        <div>
+                            <div class="tag-list">
+                                <span class="tag">Software Architecture</span>
+                                <span class="tag">DevOps</span>
+                                <span class="tag">HCI</span>
+                                <span class="tag">Agile Development</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Publications</span>
+                        <span class="info-val">Practical DevOps at Scale &nbsp;·&nbsp; Agile Product Engineering</span>
+                    </div>
+
+                    <a class="profile-email" href="mailto:samuel.lubega@bugema.ac.ug">samuel.lubega@bugema.ac.ug</a>
+                    <span class="office-badge">Office 222</span>
+                </div>
+            </article>
+
+            <!-- Dr. Michael O. Kintu -->
+            <article class="profile-card" data-tags="all lecturer security">
+                <div class="profile-avatar">
+                    <div class="avatar-initials">MK</div>
+                    <span class="rank-badge">Sr. Lecturer</span>
+                </div>
+                <div class="profile-body">
+                    <h3>Dr. Michael O. Kintu</h3>
+                    <div class="title-line">Senior Lecturer</div>
+
+                    <div class="info-row">
+                        <span class="info-label">Qualifications</span>
+                        <span class="info-val">Ph.D. Cybersecurity &nbsp;·&nbsp; MSc Network Engineering</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Research</span>
+                        <div>
+                            <div class="tag-list">
+                                <span class="tag">Network Security</span>
+                                <span class="tag">Cryptography</span>
+                                <span class="tag">Cloud Security</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Publications</span>
+                        <span class="info-val">Next-Gen Network Defense</span>
+                    </div>
+
+                    <a class="profile-email" href="mailto:michael.kintu@bugema.ac.ug">michael.kintu@bugema.ac.ug</a>
+                    <span class="office-badge">Office 215</span>
+                </div>
+            </article>
+
+            <!-- Dr. Rebecca S. Amanya -->
+            <article class="profile-card" data-tags="all lecturer ai">
+                <div class="profile-avatar">
+                    <div class="avatar-initials">RA</div>
+                    <span class="rank-badge">Lecturer</span>
+                </div>
+                <div class="profile-body">
+                    <h3>Dr. Rebecca S. Amanya</h3>
+                    <div class="title-line">Lecturer</div>
+
+                    <div class="info-row">
+                        <span class="info-label">Qualifications</span>
+                        <span class="info-val">Ph.D. Data Science &nbsp;·&nbsp; MSc Applied Mathematics &nbsp;·&nbsp; BSc Statistics</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Research</span>
+                        <div>
+                            <div class="tag-list">
+                                <span class="tag">Data Science</span>
+                                <span class="tag">ML Interpretability</span>
+                                <span class="tag">Healthcare AI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Publications</span>
+                        <span class="info-val">Deep Models for Health Predictions &nbsp;·&nbsp; Explainable AI in Public Health</span>
+                    </div>
+
+                    <a class="profile-email" href="mailto:rebecca.amanya@bugema.ac.ug">rebecca.amanya@bugema.ac.ug</a>
+                    <span class="office-badge">Office 218</span>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>Bugema University, Main Campus | Bugema, Uganda<br>&copy; 2026 Department of Computing &amp; Informatics</p>
+    </footer>
+
+    <script>
+        // Nav hamburger
+        var toggle = document.getElementById('navToggle');
+        var menu   = document.querySelector('nav ul');
+        toggle.addEventListener('click', function() {
+            toggle.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+
+        // Faculty filter
+        var filterBtns = document.querySelectorAll('.filter-btn');
+        var cards      = document.querySelectorAll('.profile-card');
+
+        filterBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var filter = btn.dataset.filter;
+
+                filterBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+
+                cards.forEach(function(card) {
+                    var tags = card.dataset.tags || '';
+                    if (filter === 'all' || tags.includes(filter)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
