@@ -36,7 +36,7 @@ nav {
 }
 
 .logo-container { display: flex; align-items: center; gap: 12px; }
-.logo-container img { height: 50px; }
+.logo-container img { height: 70px; }
 .logo-text { font-weight: 800; color: var(--bugema-blue); font-size: 1.1rem; line-height: 1; }
 
 nav ul { display: flex; list-style: none; gap: 20px; }
@@ -205,10 +205,10 @@ footer { background: var(--bugema-blue); color: white; padding: 40px 8%; text-al
 .research-card {
     background: white;
     border: 1px solid #eee;
-    border-left: 5px solid var(--bugema-red);
     border-radius: 8px;
     padding: 24px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    margin-top: 3rem;
 }
 
 .research-card h2 {
